@@ -1,13 +1,13 @@
 {
-  "name": "listascirculares",
+  "name": "listas-circulares",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/listsLinear.js"
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/listsCircular.js\""
   },
   "keywords": [],
-  "author": "",
+  "author": "j4dev",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.0.0",
