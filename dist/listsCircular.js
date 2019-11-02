@@ -67,6 +67,10 @@ class Lista {
         }
     }
 }
+/* Creación de instancia de la clase lista
+** fuera de la función
+** Recomendación cambiar al patron de diseño "Singleton"
+*/
 var lista = new Lista();
 function guardar_l() {
     lista.insertNodo();
