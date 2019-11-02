@@ -75,7 +75,7 @@ class Lista {
         var encontrado = false;
         var lista = "<li>Elemento no encontrado</li>";
         //console.log(nodoBuscado);
-        if (this.primero != null) {
+        if (this.primero.Dato != null) {
             do {
                 if (actual.Dato == nodoBuscado) {
                     lista = "";
@@ -88,16 +88,56 @@ class Lista {
                 var lista = "<li>Elemento no encontrado</li>";
             }
         }
+        else {
+            var lista = "<li>Lista vacia</li>";
+        }
         var listado = document.getElementById("listado");
         listado.innerHTML = lista;
         document.getElementById("buscar").value = "";
-        return encontrado;
     }
     /**
      * eliminarNodo
      */
-    eliminarNodo() {
-        buscarNodo;
+    eliminarNodo(nodoEliminar) {
+        var actual = new Nodo();
+        var anterior = new Nodo();
+        var encontrado = false;
+        actual = this.primero;
+        var lista = "<li>Elemento no encontrado</li>";
+        //console.log(nodoEliminar);
+        if (this.primero.Dato != null) {
+            do {
+                if (actual.Dato == nodoEliminar) {
+                    lista = "";
+                    lista = lista + "<li>Nodo eliminado: " + nodoEliminar + "</li>";
+                    if (actual == this.primero) {
+                        this.primero = this.primero.Siguiente;
+                        this.ultimo.Siguiente = this.primero;
+                    }
+                    else if (actual == this.ultimo) {
+                        anterior.Siguiente = actual.Siguiente;
+                        this.ultimo = anterior;
+                    }
+                    else {
+                        anterior.Siguiente = actual.Siguiente;
+                    }
+                    encontrado = true;
+                }
+                else {
+                    anterior = actual;
+                    actual = actual.Siguiente;
+                }
+            } while (actual != this.primero && encontrado != true);
+            if (encontrado == false) {
+                var lista = "<li>Elemento no encontrado</li>";
+            }
+        }
+        else {
+            var lista = "<li>Lista vacia</li>";
+        }
+        var listado = document.getElementById("listado");
+        listado.innerHTML = lista;
+        document.getElementById("borrar").value = "";
     }
 }
 /* Creación de instancia de la clase lista
@@ -115,5 +155,9 @@ function guardarLista() {
 function buscarNodo() {
     var nodoBuscado = document.getElementById("buscar").value.toString();
     lista.buscarNodo(nodoBuscado);
+}
+function eliminarNodo() {
+    var nodoBuscado = document.getElementById("borrar").value.toString();
+    lista.eliminarNodo(nodoBuscado);
 }
 //# sourceMappingURL=listsCircular.js.map
