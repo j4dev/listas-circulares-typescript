@@ -69,22 +69,21 @@ class Lista {
     /**
      * buscarNodo
      */
-    buscarNodo() {
+    buscarNodo(nodoBuscado) {
         var actual = new Nodo();
         actual = this.primero;
         var encontrado = false;
-        var nodoBuscado = document.getElementById("buscar").value.toString();
         var lista = "<li>Elemento no encontrado</li>";
         //console.log(nodoBuscado);
         if (this.primero != null) {
-            while (actual != this.ultimo && encontrado != true) {
+            do {
                 if (actual.Dato == nodoBuscado) {
                     lista = "";
                     lista = lista + "<li>Nodo encontrado: " + nodoBuscado + "</li>";
                     encontrado = true;
                 }
                 actual = actual.Siguiente;
-            }
+            } while (actual != this.primero && encontrado != true);
             if (encontrado == false) {
                 var lista = "<li>Elemento no encontrado</li>";
             }
@@ -92,6 +91,13 @@ class Lista {
         var listado = document.getElementById("listado");
         listado.innerHTML = lista;
         document.getElementById("buscar").value = "";
+        return encontrado;
+    }
+    /**
+     * eliminarNodo
+     */
+    eliminarNodo() {
+        buscarNodo;
     }
 }
 /* Creación de instancia de la clase lista
@@ -99,11 +105,15 @@ class Lista {
 ** Recomendación cambiar al patron de diseño "Singleton"
 */
 var lista = new Lista();
+function listar() {
+    lista.listar();
+}
 function guardarLista() {
     lista.insertNodo();
     lista.listar();
 }
 function buscarNodo() {
-    lista.buscarNodo();
+    var nodoBuscado = document.getElementById("buscar").value.toString();
+    lista.buscarNodo(nodoBuscado);
 }
 //# sourceMappingURL=listsCircular.js.map
