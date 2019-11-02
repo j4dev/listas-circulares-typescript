@@ -1,18 +1,18 @@
 "use strict";
 class Nodo {
     // get y set fot _Dato
-    set setDato(d) {
-        this.Dato = d;
+    set Dato(d) {
+        this._Dato = d;
     }
-    get getDato() {
-        return this.Dato;
+    get Dato() {
+        return this._Dato;
     }
     // get y set for _siguiente elemento de un nodo
-    set setSiguiente(s) {
-        this.Siguiente = s;
+    set Siguiente(s) {
+        this._Siguiente = s;
     }
-    get getSiguiente() {
-        return this.Siguiente;
+    get Siguiente() {
+        return this._Siguiente;
     }
 }
 class Lista {
@@ -21,8 +21,8 @@ class Lista {
         this.ultimo = new Nodo();
     }
     lista() {
-        this.primero.setDato = null;
-        this.ultimo.setDato = null;
+        this.primero.Dato = null;
+        this.ultimo.Dato = null;
     }
     /**
      * insertNodo
@@ -30,18 +30,18 @@ class Lista {
     insertNodo() {
         let nuevo = new Nodo();
         var dato = document.getElementById("insertar").value.toString();
-        nuevo.setDato = dato;
-        if (this.primero.getDato == null) {
+        nuevo.Dato = dato;
+        if (this.primero.Dato == null) {
             this.primero = nuevo;
             //console.log(this.primero);
-            this.primero.setSiguiente = this.primero;
+            this.primero.Siguiente = this.primero;
             //console.log(this.primero.getSiguiente);
             this.ultimo = this.primero;
-            //console.log(this.ultimo);
+            console.log(this.ultimo);
         }
         else {
-            this.ultimo.setSiguiente = nuevo;
-            nuevo.setSiguiente = this.primero;
+            this.ultimo.Siguiente = nuevo;
+            nuevo.Siguiente = this.primero;
             this.ultimo = nuevo;
             console.log(this.ultimo);
         }
@@ -50,11 +50,11 @@ class Lista {
         var lista = "<li>Elemento no encontrado</li>";
         var list_actual = new Nodo();
         list_actual = this.primero;
-        if (list_actual.getDato != null) {
+        if (list_actual.Dato != null) {
             var lista = "";
             do {
-                lista = lista + "<li>" + list_actual.getDato + "</li>";
-                list_actual = list_actual.getSiguiente;
+                lista = lista + "<li>" + list_actual.Dato + "</li>";
+                list_actual = list_actual.Siguiente;
                 var listado = document.getElementById("listado");
                 listado.innerHTML = lista;
                 document.getElementById("insertar").value = "";
@@ -66,14 +66,44 @@ class Lista {
             document.getElementById("insertar").value = "";
         }
     }
+    /**
+     * buscarNodo
+     */
+    buscarNodo() {
+        var actual = new Nodo();
+        actual = this.primero;
+        var encontrado = false;
+        var nodoBuscado = document.getElementById("buscar").value.toString();
+        var lista = "<li>Elemento no encontrado</li>";
+        //console.log(nodoBuscado);
+        if (this.primero != null) {
+            while (actual != this.ultimo && encontrado != true) {
+                if (actual.Dato == nodoBuscado) {
+                    lista = "";
+                    lista = lista + "<li>Nodo encontrado: " + nodoBuscado + "</li>";
+                    encontrado = true;
+                }
+                actual = actual.Siguiente;
+            }
+            if (encontrado == false) {
+                var lista = "<li>Elemento no encontrado</li>";
+            }
+        }
+        var listado = document.getElementById("listado");
+        listado.innerHTML = lista;
+        document.getElementById("buscar").value = "";
+    }
 }
 /* Creación de instancia de la clase lista
 ** fuera de la función
 ** Recomendación cambiar al patron de diseño "Singleton"
 */
 var lista = new Lista();
-function guardar_l() {
+function guardarLista() {
     lista.insertNodo();
     lista.listar();
+}
+function buscarNodo() {
+    lista.buscarNodo();
 }
 //# sourceMappingURL=listsCircular.js.map

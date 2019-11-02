@@ -1,24 +1,24 @@
 class Nodo {
-    private Dato: string;
-    private Siguiente: Nodo;
+    private _Dato: string;
+    private _Siguiente: Nodo;
 
     // get y set fot _Dato
-    public set setDato(d : string) {
-        this.Dato = d;
+    public set Dato(d : string) {
+        this._Dato = d;
     }
     
-    public get getDato() : string {
-        return this.Dato
+    public get Dato() : string {
+        return this._Dato
     }
     
     // get y set for _siguiente elemento de un nodo
     
-    public set setSiguiente(s : Nodo) {
-        this.Siguiente = s;
+    public set Siguiente(s : Nodo) {
+        this._Siguiente = s;
     }
     
-    public get getSiguiente() : Nodo {
-        return this.Siguiente;
+    public get Siguiente() : Nodo {
+        return this._Siguiente;
     }
     
 }
@@ -28,8 +28,8 @@ class Lista {
     private ultimo = new Nodo();
 
     public lista(){
-        this.primero.setDato = null;
-        this.ultimo.setDato = null;
+        this.primero.Dato = null;
+        this.ultimo.Dato = null;
     }
 
     /**
@@ -39,21 +39,21 @@ class Lista {
         let nuevo = new Nodo();
 
         var dato = (<HTMLInputElement>document.getElementById("insertar")).value.toString();
-        nuevo.setDato = dato;
+        nuevo.Dato = dato;
 
-        if (this.primero.getDato == null) {
+        if (this.primero.Dato == null) {
 
             this.primero = nuevo;
             //console.log(this.primero);
-            this.primero.setSiguiente = this.primero;
+            this.primero.Siguiente = this.primero;
             //console.log(this.primero.getSiguiente);
             this.ultimo = this.primero;
-            //console.log(this.ultimo);
+            console.log(this.ultimo);
 
         } else {
 
-            this.ultimo.setSiguiente = nuevo;
-            nuevo.setSiguiente = this.primero;
+            this.ultimo.Siguiente = nuevo;
+            nuevo.Siguiente = this.primero;
             this.ultimo = nuevo;
             console.log(this.ultimo);
         }
@@ -65,13 +65,13 @@ class Lista {
         var list_actual = new Nodo();
         list_actual = this.primero;
         
-        if(list_actual.getDato != null )
+        if(list_actual.Dato != null )
         {
             var lista = "";
             do {
                 
-                lista = lista+"<li>"+list_actual.getDato+"</li>";
-                list_actual = list_actual.getSiguiente;
+                lista = lista+"<li>"+list_actual.Dato+"</li>";
+                list_actual = list_actual.Siguiente;
                 var listado = <HTMLElement> document.getElementById("listado");
                 listado.innerHTML = lista;
                 (<HTMLInputElement>document.getElementById("insertar")).value = "";
@@ -82,7 +82,41 @@ class Lista {
             listado.innerHTML = lista;
             (<HTMLInputElement>document.getElementById("insertar")).value = "";
         }
-}
+
+    }
+
+    /**
+     * buscarNodo
+     */
+    public buscarNodo() {
+        var actual = new Nodo();
+        actual = this.primero;
+        var encontrado: boolean = false;
+        var nodoBuscado = (<HTMLInputElement>document.getElementById("buscar")).value.toString();
+        var lista = "<li>Elemento no encontrado</li>";
+        //console.log(nodoBuscado);
+        
+        if(this.primero != null){
+            while (actual != this.ultimo && encontrado != true) {
+                if (actual.Dato == nodoBuscado) {
+                    lista = "";
+                    lista = lista+"<li>Nodo encontrado: "+nodoBuscado+"</li>";
+                    encontrado = true;
+                }
+
+                actual = actual.Siguiente;
+            }
+            if (encontrado == false) {
+                var lista = "<li>Elemento no encontrado</li>";
+            }
+
+        }
+
+        var listado = <HTMLElement> document.getElementById("listado");
+        listado.innerHTML = lista;
+        (<HTMLInputElement>document.getElementById("buscar")).value = "";
+
+    }
 
 }
 
@@ -91,8 +125,11 @@ class Lista {
 ** Recomendación cambiar al patron de diseño "Singleton"
 */
 var lista = new Lista();
-function guardar_l() {
+function guardarLista() {
     
     lista.insertNodo();
     lista.listar();
+}
+function buscarNodo() {
+    lista.buscarNodo();
 }
